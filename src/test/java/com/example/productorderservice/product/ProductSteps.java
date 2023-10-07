@@ -1,11 +1,8 @@
 package com.example.productorderservice.product;
 
-import com.example.productorderservice.ApiTest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,5 +42,9 @@ public class ProductSteps {
                                                             .all()
                                                             .extract();
         return response;
+    }
+
+    static UpdateProductRequest 상품수정요청() {
+        return new UpdateProductRequest("상품 수정", 2000, DiscountPolicy.NONE);
     }
 }
