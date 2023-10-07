@@ -1,9 +1,14 @@
 package com.example.productorderservice.product;
 
+import com.example.productorderservice.ApiTest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProductSteps {
 
@@ -27,5 +32,18 @@ public class ProductSteps {
         final DiscountPolicy discountPolicy = DiscountPolicy.NONE;
         final AddProductRequest request = new AddProductRequest(name, price, discountPolicy);
         return request;
+    }
+
+    public static ExtractableResponse<Response> 상품조회요청(Long productId) {
+        ExtractableResponse<Response> response = RestAssured.given()
+                                                            .log()
+                                                            .all()
+                                                            .when()
+                                                            .get("/products/{productId}", productId)
+                                                            .then()
+                                                            .log()
+                                                            .all()
+                                                            .extract();
+        return response;
     }
 }
