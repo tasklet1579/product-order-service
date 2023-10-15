@@ -52,7 +52,7 @@ public class ProductApiTest extends ApiTest {
                           .log()
                           .all()
                           .contentType(MediaType.APPLICATION_JSON_VALUE)
-                          .body(ProductSteps.상품등록_생성())
+                          .body(ProductSteps.상품수정요청())
                           .when()
                           .patch("/products/{productId}", 1L)
                           .then()
