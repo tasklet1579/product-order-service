@@ -31,7 +31,7 @@ public class ProductSteps {
         return request;
     }
 
-    public static ExtractableResponse<Response> 상품조회요청(Long productId) {
+    public static ExtractableResponse<Response> 상품조회_요청(Long productId) {
         ExtractableResponse<Response> response = RestAssured.given()
                                                             .log()
                                                             .all()

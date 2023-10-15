@@ -30,7 +30,7 @@ public class ProductApiTest extends ApiTest {
         ProductSteps.상품등록_요청(ProductSteps.상품등록_생성());
         Long productId = 1L;
 
-        ExtractableResponse<Response> response = ProductSteps.상품조회요청(productId);
+        ExtractableResponse<Response> response = ProductSteps.상품조회_요청(productId);
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
@@ -39,7 +39,7 @@ public class ProductApiTest extends ApiTest {
     void 상품수정() {
         ProductSteps.상품등록_요청(ProductSteps.상품등록_생성());
 
-        ExtractableResponse<Response> response = 상품수정요청();
+        ExtractableResponse<Response> response = 상품수정_요청();
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
         assertThat(productRepository.findById(1L)
@@ -47,7 +47,7 @@ public class ProductApiTest extends ApiTest {
                                     .getName()).isEqualTo("상품 수정");
     }
 
-    private static ExtractableResponse<Response> 상품수정요청() {
+    private static ExtractableResponse<Response> 상품수정_요청() {
         return RestAssured.given()
                           .log()
                           .all()
