@@ -1,24 +1,29 @@
 package com.example.productorderservice.payment;
 
 import com.example.productorderservice.order.Order;
+import com.example.productorderservice.order.OrderRepository;
 import com.example.productorderservice.product.DiscountPolicy;
 import com.example.productorderservice.product.Product;
 import org.springframework.stereotype.Component;
 
 @Component
 class PaymentAdapter implements PaymentPort {
-    private PaymentGateway paymentGateway;
+    private final PaymentGateway paymentGateway;
 
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
 
-    public PaymentAdapter(PaymentGateway paymentGateway, PaymentRepository paymentRepository) {
+    private final OrderRepository orderRepository;
+
+    public PaymentAdapter(PaymentGateway paymentGateway, PaymentRepository paymentRepository, OrderRepository orderRepository) {
         this.paymentGateway = paymentGateway;
         this.paymentRepository = paymentRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
-    public Order getOrder(Long aLong) {
-        return new Order(new Product("상품1", 1000, DiscountPolicy.NONE), 2);
+    public Order getOrder(Long orderId) {
+        return orderRepository.findById(orderId)
+                              .orElseThrow(() -> new IllegalArgumentException("주문이 존재하지 않습니다."));
     }
 
     @Override
